@@ -13,9 +13,14 @@ public class GameControl : MonoBehaviour
 	public bool gameOver = false;				//Is the game over?
 	public float scrollSpeed = -1.5f;
 
-    
+    public GameObject[] players;
 
-	void Awake()
+    private void Start()
+    {
+        Instantiate(players[GameManager.Instance.playerIdx],new Vector3(-1.8f, 0.55f),Quaternion.identity);
+    }
+
+    void Awake()
 	{
 		//If we don't currently have a game control...
 		if (instance == null)
