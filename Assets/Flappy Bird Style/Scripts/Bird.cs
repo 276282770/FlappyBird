@@ -15,12 +15,17 @@ public class Bird : MonoBehaviour
 		anim = GetComponent<Animator> ();
 		//Get and store a reference to the Rigidbody2D attached to this GameObject.
 		rb2d = GetComponent<Rigidbody2D>();
+
+        if (!GameControl.instance.gameStart)
+        {
+            SetStop();
+        }
 	}
 
 	void Update()
 	{
 		//Don't allow control if the bird has died.
-		if (isDead == false) 
+		if (isDead == false&&GameControl.instance.gameStart) 
 		{
 			//Look for input to trigger a "flap".
 			if (Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.W)) 
@@ -35,6 +40,14 @@ public class Bird : MonoBehaviour
 			}
 		}
 	}
+    public void SetStart()
+    {
+        rb2d.isKinematic = false;
+    }
+    public void SetStop()
+    {
+        rb2d.isKinematic = true;
+    }
 
 	void OnCollisionEnter2D(Collision2D other)
 	{

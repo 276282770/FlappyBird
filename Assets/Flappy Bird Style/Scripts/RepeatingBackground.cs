@@ -19,6 +19,8 @@ public class RepeatingBackground : MonoBehaviour
 	//Update runs once per frame
 	private void Update()
 	{
+        if (!GameControl.instance.gameStart)
+            return;
 		//Check if the difference along the x axis between the main Camera and the position of the object this is attached to is greater than groundHorizontalLength.
 		if (transform.position.x < -groundHorizontalLength)
 		{

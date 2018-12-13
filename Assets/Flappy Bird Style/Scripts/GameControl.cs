@@ -11,13 +11,21 @@ public class GameControl : MonoBehaviour
 
 	private int score = 0;						//The player's score.
 	public bool gameOver = false;				//Is the game over?
+    public bool gameStart = false;
 	public float scrollSpeed = -1.5f;
+    public Animator countDown;
+    
 
     public GameObject[] players;
 
+    Bird player;
+
     private void Start()
     {
-        Instantiate(players[GameManager.Instance.playerIdx],new Vector3(-1.8f, 0.55f),Quaternion.identity);
+        if (GameManager.Instance == null)
+            return;
+        player= Instantiate(players[GameManager.Instance.playerIdx],new Vector3(-1.8f, 0.55f),Quaternion.identity).GetComponent<Bird>();
+        CountDown();
     }
 
     void Awake()
@@ -41,6 +49,17 @@ public class GameControl : MonoBehaviour
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 	}
+    void CountDown()
+    {
+        countDown.Play("CountDown");
+        Invoke("StartGame", 3);
+    }
+    public void StartGame()
+    {
+        countDown.gameObject.SetActive(false);
+        gameStart = true;
+        player.SetStart();
+    }
 
 	public void BirdScored()
 	{
