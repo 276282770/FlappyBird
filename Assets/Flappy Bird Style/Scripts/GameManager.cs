@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance;
 
     public int playerIdx = 0;
+    public int backgroundIdx = 0;
 	// Use this for initialization
 	void Start () {
         Instance = this;

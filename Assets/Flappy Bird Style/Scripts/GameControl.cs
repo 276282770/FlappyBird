@@ -14,6 +14,9 @@ public class GameControl : MonoBehaviour
     public bool gameStart = false;
 	public float scrollSpeed = -1.5f;
     public Animator countDown;
+    public PanelGameOver panelGameOver;
+    public Sprite[] spBackgrounds;
+    public SpriteRenderer[] imgBackgound;
     
 
     public GameObject[] players;
@@ -24,6 +27,8 @@ public class GameControl : MonoBehaviour
     {
         if (GameManager.Instance == null)
             return;
+        Sprite spBackground = spBackgrounds[GameManager.Instance.backgroundIdx];
+        SetBackground(spBackground);
         player= Instantiate(players[GameManager.Instance.playerIdx],new Vector3(-1.8f, 0.55f),Quaternion.identity).GetComponent<Bird>();
         CountDown();
     }
@@ -46,7 +51,7 @@ public class GameControl : MonoBehaviour
 		if (gameOver && (Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.W))) 
 		{
 			//...reload the current scene.
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			//SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 	}
     void CountDown()
@@ -59,6 +64,13 @@ public class GameControl : MonoBehaviour
         countDown.gameObject.SetActive(false);
         gameStart = true;
         player.SetStart();
+    }
+    void SetBackground(Sprite sp)
+    {
+        for(int i = 0; i < imgBackgound.Length; i++)
+        {
+            imgBackgound[i].sprite = sp;
+        }
     }
 
 	public void BirdScored()
@@ -75,8 +87,10 @@ public class GameControl : MonoBehaviour
 	public void BirdDied()
 	{
 		//Activate the game over text.
-		gameOvertext.SetActive (true);
+		//gameOvertext.SetActive (true);
 		//Set the game to be over.
 		gameOver = true;
+        panelGameOver.Show(score);
+        scoreText.gameObject.SetActive(false);
 	}
 }
