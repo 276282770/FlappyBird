@@ -23,6 +23,8 @@ public class PanelBackground : MonoBehaviour {
             newItem.transform.GetChild(0).GetComponent<Image>().sprite = spItems[i];
             newItem.GetComponent<BgItem>().idx = i;
         }
+        int bgIdx=PlayerPrefs.GetInt("Bg", 0);
+        OnItemClick(bgIdx);
     }
     public void OnItemClick(int idx)
     {
@@ -38,6 +40,7 @@ public class PanelBackground : MonoBehaviour {
             }
         }
         GameManager.Instance.backgroundIdx = idx;
+        PlayerPrefs.SetInt("Bg", idx);
     }
 
 }
