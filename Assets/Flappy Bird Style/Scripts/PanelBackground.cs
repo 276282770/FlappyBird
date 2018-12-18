@@ -13,9 +13,9 @@ public class PanelBackground : MonoBehaviour {
     private void Start()
     {
         ctnt = transform.Find("Scroll View").GetComponent<ScrollRect>().content;
-        FillPanel();
+        StartCoroutine(FillPanel());
     }
-    void FillPanel()
+    IEnumerator FillPanel()
     {
         for(int i = 0; i < spItems.Length; i++)
         {
@@ -25,9 +25,11 @@ public class PanelBackground : MonoBehaviour {
         }
         int bgIdx=PlayerPrefs.GetInt("Bg", 0);
         OnItemClick(bgIdx);
+        yield return null;
     }
     public void OnItemClick(int idx)
     {
+        Sound.Instance.PlayClick();
         for(int i = 0; i < ctnt.childCount; i++)
         {
             if(i==idx)

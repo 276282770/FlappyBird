@@ -30,6 +30,14 @@ public class Bird : MonoBehaviour
 			//Look for input to trigger a "flap".
 			if (Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.W)) 
 			{
+                if (GameManager.Instance.playerIdx == 0)
+                {
+                    Sound.Instance.PlayP1();
+                }
+                else if (GameManager.Instance.playerIdx == 1)
+                {
+                    Sound.Instance.PlayP2();
+                }
 				//...tell the animator about it and then...
 				anim.SetTrigger("Flap");
 				//...zero out the birds current y velocity before...

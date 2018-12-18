@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class PanelGameOver : MonoBehaviour {
 
     public Text txtScore;
+    public Image imgStar;
+    public Sprite[] spStars;
     Animator anim;
 	// Use this for initialization
 	void Start () {
@@ -22,7 +24,24 @@ public class PanelGameOver : MonoBehaviour {
     }
     public void Show(int score)
     {
+        Sound.Instance.Stop();
+        Sound.Instance.PlayGameOver();
         txtScore.text = "得分："+score.ToString();
+        if (score < 10)
+        {
+            imgStar.sprite = spStars[3];
+        }else if (score < 50)
+        {
+            imgStar.sprite = spStars[2];
+        }else if (score < 200)
+        {
+            imgStar.sprite = spStars[1];
+        }
+        else
+        {
+            imgStar.sprite = spStars[0];
+        }
+        
         Show();
     }
     public void Hide()
@@ -31,12 +50,12 @@ public class PanelGameOver : MonoBehaviour {
     }
     public void OnReplay()
     {
-
+        Sound.Instance.PlayClick();
         GameManager.Instance.LoadScene("Main");
     }
     public void OnHome()
     {
-
+        Sound.Instance.PlayClick();
         GameManager.Instance.LoadScene("Index");
     }
 }
