@@ -46,6 +46,12 @@ public class Loading : MonoBehaviour {
         GameManager.Instance.playerIdx = 1;
         GameManager.Instance.LoadScene("Main");
     }
+    public void OnSelectPlayer2()
+    {
+        Sound.Instance.PlayClick();
+        GameManager.Instance.playerIdx = 2;
+        GameManager.Instance.LoadScene("Main");
+    }
     Sprite LoadSprite(string path,Vector2Int size)
     {
         FileInfo fi = new FileInfo(path);
